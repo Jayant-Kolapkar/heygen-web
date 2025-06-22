@@ -5,8 +5,8 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 First, clone the repository and install dependencies:
 
 ```bash
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/Jayant-Kolapkar/heygen-web.git
+cd heygen-web
 npm install
 ```
 
