@@ -102,7 +102,12 @@ export default function AvatarStream({ heygenEndpoint, sessionToken, sessionId, 
 
     return () => {
       console.log('[CLIENT] Cleaning up avatar');
-      avatar.stopAvatar();
+      if (avatarRef.current) {
+        avatarRef.current.stopAvatar().catch(err => {
+          console.error('[CLIENT] Error stopping avatar:', err);
+        });
+        avatarRef.current = null;
+      }
     };
   }, [heygenEndpoint, sessionToken, sessionId]);
 

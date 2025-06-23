@@ -94,7 +94,7 @@ export async function GET() {
         emotion: "soothing",
         rate: 1,
       },
-      quality: "High",
+      quality: "high",
     }
 
     console.log('[DEBUG] Sending to streaming.new:', JSON.stringify(newPayload, null, 2));
@@ -149,7 +149,8 @@ export async function GET() {
     console.log('[DEBUG] Session ID:', session_id);
     console.log('[DEBUG] Realtime Endpoint:', newJson.data.realtime_endpoint);
 
-    // 3) Start session - USE v1 ENDPOINT
+    // 3) Start session - SKIP THIS STEP - newer API might not need it
+    /*
     const startPayload = { session_id };
     console.log('[DEBUG] Sending to streaming.start:', JSON.stringify(startPayload, null, 2));
     
@@ -184,6 +185,9 @@ export async function GET() {
         details: startJson 
       }, { status: startRes.status });
     }
+    */
+
+    console.log('[DEBUG] Skipping streaming.start - session should be ready from streaming.new');
 
     return NextResponse.json({
       heygenEndpoint: newJson.data.realtime_endpoint,
