@@ -73,7 +73,6 @@ This project integrates a live Heygen avatar with streaming speech using Heygen'
 
 - **401 Unauthorized?**
   - Ensure `.env.local` has no trailing whitespace.
-  - Wrap the API key in quotes if it ends with `=` or `==`.
   - Try regenerating your Heygen API key and restarting the dev server.
 
 - **Streaming fails after connection?**
