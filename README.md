@@ -10,15 +10,19 @@ cd heygen-web
 npm install
 ```
 
-Then, create a `.env.local` file in the root of the project with the following values:
+Then, change the `.env.local` file in the root of the project with the following values:
 
 ```
-HEYGEN_API_KEY=your_heygen_api_key
-NEXT_PUBLIC_AVATAR_ID=Brandon_Office_Sitting_Front_public
-NEXT_PUBLIC_VOICE_ID=046dacc3502347eea0c796f97399632e
+NEXT_PUBLIC_AVATAR_ID=Elenora_IT_Sitting_public
+NEXT_PUBLIC_VOICE_ID=1bd001e7e50f421d891986aad5158bc8
+NEXT_PUBLIC_HEYGEN_API_KEY=Heygen_key_here_without_quotes
+LIVEKIT_URL=wss://livekit-url-here
+LIVEKIT_API_KEY=APIkeyLIVEKIT
+LIVEKIT_API_SECRET=LivekitSecretHere
+PORT=3000
 ```
 
-> 💡 If your API key ends with `==`, make sure to wrap it in quotes to avoid formatting issues.
+> 💡 No matter how your API key ends, do NOT wrap it in quotes, even if it ends with `==`. The VS Code terminal will show wrong coloration, but it is ok.
 
 Now, run the development server:
 
@@ -43,20 +47,11 @@ This project integrates a live Heygen avatar with streaming speech using Heygen'
 - **`components/AvatarStream.tsx`**  
   Initializes the `StreamingAvatar` instance, attaches the video stream, and handles the `speak()` calls and emotion config.
 
-- **`app/api/streaming-session/route.ts`**  
+- **`app/api/get-access-token/route.ts`**  
   Main backend API route. It:
   - Creates a session token using your Heygen API key.
   - Initializes a streaming avatar session with emotion and voice config.
   - Starts the session and returns the connection data to the frontend.
-
-- **`app/api/speak/route.ts`**  
-  (Optional) Endpoint to handle text-to-speech requests dynamically if you want to build interactions later.
-
-- **`app/api/token/route.ts`**  
-  (Optional) Used for debugging token generation.
-
-- **`app/api/verify-env/route.ts`**  
-  Simple API to debug whether environment variables are correctly read on the server.
 
 - **`lib/heygenTypes.ts`**  
   Shared enum/constants for Heygen emotion types.
