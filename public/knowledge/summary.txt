@@ -1,0 +1,19 @@
+Startup Name: FreightAI
+
+Industry: Logistics / Supply Chain
+
+Pitch deck Summary:
+FreightAI is building a predictive logistics optimization platform using AI. Their product helps mid-sized freight companies reduce delays and optimize routing by leveraging real-time data and predictive modeling.
+
+Funding Raised: $300k pre-seed (friends & family)
+Monthly Revenue: $18k MRR
+Customers: 22 active clients across 3 states
+CAC: ~$210 | LTV: ~$1700
+Competitors: Project44, FourKites
+Team: 3 founders — CEO (logistics veteran), CTO (ex-Amazon), and CPO (ex-Uber Freight)
+Go-to-market: Direct sales + partnerships with freight aggregators
+Tech Stack: Python, FastAPI, TensorFlow, AWS IoT
+
+Clarifications:
+- Claiming 18% reduction in delays during pilot tests
+- Working on a new AI model for customs documentation
