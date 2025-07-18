@@ -121,19 +121,5 @@ When the avatar says the session‑end phrase, the UI shows a **Download Transcr
 ]
 ```
 
----
 
-## 🎥 Embedding a Demo Video in README
-
-To include a short demo video (`demo.mp4`) in your GitHub README:
-
-1. Place `demo.mp4` in your repo (e.g. root or `public/`).
-2. In this README, add:
-
-   ```md
-   ### Demo Video
-   <video src="./demo.mp4" controls width="600">
-     Your browser does not support the video tag.
-   </video>
-   ```
 
