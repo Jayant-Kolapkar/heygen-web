@@ -1,97 +1,139 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# HeyGen‑Web
 
-## Getting Started
+**Interactive AI Avatar Web App**
 
-First, clone the repository and install dependencies:
+This Next.js application lets you chat with a HeyGen avatar in two modes:
+
+* **Text Mode** (`components/AvatarStream.tsx`) — Type messages and receive avatar replies in the browser.
+* **Voice Mode** (`components/AvatarVoice.tsx`) — Speak to the avatar over your microphone; see and hear real‑time responses and transcripts.
+
+The avatar is an investor assistant from Ideasouq, asking follow‑up questions about a startup’s pitch deck and online profile. You can customize its personality and behavior by editing the system prompt in `components/AvatarVoice.tsx`.
+
+---
+
+## 📁 Project Structure
+
+```
+heygen-web/
+├── .env.local                # Environment variables (ignored by Git)
+├── app/
+│   ├── api/get-access-token/ # Route to fetch HeyGen API token
+│   │   └── route.ts
+│   ├── layout.tsx
+│   └── page.tsx               # Mode switch: Text vs. Voice
+├── components/
+│   ├── AvatarStream.tsx       # Text‑only chat UI
+│   └── AvatarVoice.tsx        # Video + voice chat UI
+├── lib/
+│   ├── cleanEnvVar.ts         # Env var helper
+│   └── heygenTypes.ts         # Type definitions
+├── public/
+│   └── knowledge/summary.txt  # Pre‑generated startup summary
+├── package.json
+└── next.config.js
+```
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+* **Node.js** v18+ (or latest LTS)
+* **npm** v8+ (bundled with Node)
+* A HeyGen API key (found under **Settings → Subscriptions → API** in your HeyGen dashboard)
+
+### Environment Variables
+
+Create a file at the project root named `.env.local` with these entries:
 
 ```bash
-git clone https://github.com/Jayant-Kolapkar/heygen-web.git
-cd heygen-web
-npm install
-```
-
-Then, create a `.env.local` file in the root of the project with the following values:
-
-```
-HEYGEN_API_KEY=your_heygen_api_key
+HEYGEN_API_KEY=your_heygen_api_key          # copy/paste exactly, may include ==
 NEXT_PUBLIC_AVATAR_ID=Brandon_Office_Sitting_Front_public
 NEXT_PUBLIC_VOICE_ID=046dacc3502347eea0c796f97399632e
+PORT=3000
 ```
 
-> 💡 If your API key ends with `==`, make sure to wrap it in quotes to avoid formatting issues.
+> **Note:** VSCode may color the `==` differently, but as long as they’re in `.env.local` without quotes, it works.
 
-Now, run the development server:
+### Install & Run
 
 ```bash
+# Install dependencies
+pm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Open your browser
+http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
+
+## ⚙️ Available Scripts
+
+```bash
+npm run dev    # Start development server (port 3000)
+npm run build  # Build for production
+npm run start  # Start built app
+npm run lint   # Run Next.js linter
+npm run clean  # Remove node_modules & lockfile
+```
 
 ---
 
-### Files Used
+## 🧩 Customizing the Avatar
 
-This project integrates a live Heygen avatar with streaming speech using Heygen's streaming API. These are the key files:
+Open `components/AvatarVoice.tsx` and locate the **`knowledgeBase`** string. You can:
 
-- **`components/AvatarStream.tsx`**  
-  Initializes the `StreamingAvatar` instance, attaches the video stream, and handles the `speak()` calls and emotion config.
+* Change the avatar’s introduction or persona.
+* Update the number or type of questions it should ask.
+* Modify the session end phrase (default: **"Session complete"**).
 
-- **`app/api/streaming-session/route.ts`**  
-  Main backend API route. It:
-  - Creates a session token using your Heygen API key.
-  - Initializes a streaming avatar session with emotion and voice config.
-  - Starts the session and returns the connection data to the frontend.
+  * If you change it, also update the detection logic in the `AVATAR_END_MESSAGE` handler.
 
-- **`app/api/speak/route.ts`**  
-  (Optional) Endpoint to handle text-to-speech requests dynamically if you want to build interactions later.
-
-- **`app/api/token/route.ts`**  
-  (Optional) Used for debugging token generation.
-
-- **`app/api/verify-env/route.ts`**  
-  Simple API to debug whether environment variables are correctly read on the server.
-
-- **`lib/heygenTypes.ts`**  
-  Shared enum/constants for Heygen emotion types.
-
-- **`lib/cleanEnvVar.ts`**  
-  Utility to sanitize any trailing quotes or spaces from environment variables.
-
-- **`app/page.tsx`**  
-  The root frontend page. It fetches a streaming session and renders the `AvatarStream` component.
+```ts
+// Example:
+const knowledgeBase = `...\nWhen you are finished saying all your questions, end with:\n"Thank you for your time. This concludes our conversation. Session complete."`;
+```
 
 ---
 
-## Common Issues
+## 📦 Deployment (Vercel)
 
-- **401 Unauthorized?**
-  - Ensure `.env.local` has no trailing whitespace.
-  - Try regenerating your Heygen API key and restarting the dev server.
-
-- **Streaming fails after connection?**
-  - Confirm the selected voice supports emotion. You can use `SOOTHING`, `FRIENDLY`, or `NEUTRAL` depending on the voice capability.
-  - Double-check that the avatar ID and voice ID are valid and compatible.
+1. Push your repo to GitHub.
+2. Login to Vercel and import the GitHub project.
+3. In Vercel dashboard, add the same environment variables (HEYGEN\_API\_KEY, etc.).
+4. Click **Deploy**. Vercel will run `npm run build` and host your app.
 
 ---
 
-## Learn More
+## 📄 Transcript Download
 
-To learn more about Next.js, take a look at the following resources:
+When the avatar says the session‑end phrase, the UI shows a **Download Transcript** button. It exports a JSON file with question/answer pairs:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```json
+[
+  { "id": 1, "question": "What is your revenue model?", "answer": "We use a subscription service..." },
+  { "id": 2, "question": "How many active users?", "answer": "About 10,000 per month." },
+  …
+]
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🎥 Embedding a Demo Video in README
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+To include a short demo video (`demo.mp4`) in your GitHub README:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Place `demo.mp4` in your repo (e.g. root or `public/`).
+2. In this README, add:
+
+   ```md
+   ### Demo Video
+   <video src="./demo.mp4" controls width="600">
+     Your browser does not support the video tag.
+   </video>
+   ```
+
