@@ -97,6 +97,48 @@ Open `components/AvatarVoice.tsx` and locate the **`knowledgeBase`** string. You
 // Example:
 const knowledgeBase = `...\nWhen you are finished saying all your questions, end with:\n"Thank you for your time. This concludes our conversation. Session complete."`;
 ```
+---
+## 🛠 Installation and Running Locally
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/Jayant-Kolapkar/heygen-web.git
+   cd heygen-web
+   ```
+
+2. **Install dependencies:**
+
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables:**
+
+   Create a `.env.local` file in the root of the project and add:
+
+   ```
+   HEYGEN_API_KEY=your_heygen_api_key
+   NEXT_PUBLIC_AVATAR_ID=Brandon_Office_Sitting_Front_public
+   NEXT_PUBLIC_VOICE_ID=046dacc3502347eea0c796f97399632e
+   PORT=3000
+   ```
+
+   > 💡 You can find your HeyGen API key in the HeyGen dashboard under **Settings → Subscriptions and API**. It often ends in `==`. Do not wrap it in quotes.
+
+4. **Start the development server:**
+
+   ```bash
+   npm run dev
+   ```
+
+5. **Visit the app:**
+
+   Open your browser and go to:
+
+   ```
+   http://localhost:3000
+   ```
 
 ---
 
